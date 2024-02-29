@@ -14,5 +14,6 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "Bloom Scroll"
-include(":sampleapp")
 include(":bloomscroll")
+include(":sample-recycler")
+include(":sample-compose")

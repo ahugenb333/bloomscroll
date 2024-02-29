@@ -1,13 +1,17 @@
 package com.ahugenb.bloomscroll.recycler
 
+import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.recyclerview.widget.RecyclerView
 
-class BloomScrollAdapter(private val items: List<BloomScrollItem>) : RecyclerView.Adapter<BloomScrollAdapter.BloomViewHolder>() {
+class BloomScrollAdapter(private val items: List<BloomScrollItem<out View>>) : RecyclerView.Adapter<BloomScrollAdapter.BloomViewHolder>() {
 
-    class BloomViewHolder(val container: FrameLayout) : RecyclerView.ViewHolder(container)
-
+    class BloomViewHolder(val container: FrameLayout) : RecyclerView.ViewHolder(container) {
+        lateinit var item: BloomScrollItem<out View> // Add the item property
+        val view: View // Expose the view directly
+            get() = item.view
+    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BloomViewHolder {
         val frameLayout = FrameLayout(parent.context).apply {
             layoutParams = ViewGroup.LayoutParams(
@@ -19,10 +23,11 @@ class BloomScrollAdapter(private val items: List<BloomScrollItem>) : RecyclerVie
     }
 
     override fun onBindViewHolder(holder: BloomViewHolder, position: Int) {
-        val item = items[position]
+        val bloomItem = items[position] // Renamed for clarity
         holder.container.removeAllViews()
-        if (item.shouldCount) {
-            holder.container.addView(item.view)
+        holder.item = bloomItem  // Assign the BloomScrollItem
+        if (bloomItem.shouldCount) {
+            holder.container.addView(bloomItem.view)
         }
     }
 
