@@ -1,4 +1,4 @@
-package com.ahugenb.bloomscroll.ui.theme
+package com.ahugenb.`bloomscroll-sample`.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
