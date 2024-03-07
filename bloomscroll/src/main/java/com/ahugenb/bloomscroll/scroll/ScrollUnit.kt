@@ -1,4 +1,4 @@
-package scroll
+package com.ahugenb.bloomscroll.scroll
 
 
 sealed class ScrollUnit {

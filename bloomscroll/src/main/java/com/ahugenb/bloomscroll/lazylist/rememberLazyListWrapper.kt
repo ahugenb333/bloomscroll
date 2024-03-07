@@ -6,9 +6,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.platform.LocalDensity
+import com.ahugenb.bloomscroll.scroll.ScrollDirection
+import com.ahugenb.bloomscroll.scroll.ScrollUnit
 import kotlinx.coroutines.CoroutineScope
-import scroll.ScrollDirection
-import scroll.ScrollUnit
 
 @Composable
 fun rememberLazyListWrapper(

@@ -18,8 +18,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import com.ahugenb.bloomscroll.lazylist.rememberLazyListWrapper
-import scroll.ScrollDirection
-import scroll.ScrollUnit
+import com.ahugenb.bloomscroll.scroll.ScrollDirection
+import com.ahugenb.bloomscroll.scroll.ScrollUnit
 
 
 class MainActivity : ComponentActivity() {
@@ -64,7 +64,7 @@ fun ScrollingWellnessTool() {
 
     Column {
         Row {
-            Text(text = "threshold: ${timesReached.value}, dp: ${distanceScrolledDp.value}, cm: ${distanceScrolledCm.value}")
+            Text(text = "threshold: ${timesReached.intValue}, dp: ${distanceScrolledDp.intValue}, cm: ${distanceScrolledCm.floatValue}")
         }
         Row {
             LazyColumn(state = lazyListState, modifier = Modifier.fillMaxSize()) {
