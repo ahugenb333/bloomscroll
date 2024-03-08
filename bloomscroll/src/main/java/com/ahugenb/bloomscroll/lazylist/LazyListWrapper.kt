@@ -24,8 +24,8 @@ class LazyListWrapper(
     private var totalItemsScrolled by mutableIntStateOf(0)
 
     init {
-        snapshotFlow { Pair(lazyListState.firstVisibleItemScrollOffset, lazyListState.firstVisibleItemIndex) }
-            .onEach { ( _, currentIndex) ->
+        snapshotFlow { lazyListState.firstVisibleItemIndex}
+            .onEach { currentIndex ->
                 if (!isDummyItem(currentIndex)) {
                     totalItemsScrolled += currentIndex - previousIndex
                     previousIndex = currentIndex
