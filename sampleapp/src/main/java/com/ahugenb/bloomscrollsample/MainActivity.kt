@@ -12,14 +12,12 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.sp
 import com.ahugenb.bloomscroll.lazylist.rememberLazyListWrapper
-import com.ahugenb.bloomscroll.scroll.ScrollDirection
-import com.ahugenb.bloomscroll.scroll.ScrollUnit
 
 
 class MainActivity : ComponentActivity() {
@@ -40,31 +38,25 @@ fun ScrollingWellnessTool() {
     val lazyListState = rememberLazyListState()
     val coroutineScope = rememberCoroutineScope()
     val timesReached = remember { mutableIntStateOf(0) }
-    val distanceScrolledDp = remember { mutableIntStateOf(0) }
-    val distanceScrolledCm = remember { mutableFloatStateOf(0f) }
+    val itemsScrolled = remember { mutableIntStateOf(0) }
 
     // Example usage of rememberLazyListWrapper
     val wrapper = rememberLazyListWrapper(
         lazyListState = lazyListState,
         scope = coroutineScope,
-        scrollDirection = ScrollDirection.FORWARD,
-        isDummyItem = { position -> false }, // Simplified: No dummy items in this example
-        onItemScrolled = { unit ->
-            when (unit) {
-                is ScrollUnit.Dp -> distanceScrolledDp.intValue = unit.count
-                is ScrollUnit.Cm -> distanceScrolledCm.floatValue = unit.distance
-                else -> { /* TODO */ }
-            }
+        isDummyItem = { _ -> false },
+        onScroll =  { currentTotal ->
+            itemsScrolled.intValue = currentTotal
         },
-        onThresholdReached = { timesReached ->
-            println("Threshold reached $timesReached times")
+        onThresholdReached = { times ->
+            timesReached.intValue = times
         },
-        distanceThresholdCm = 15f // Example threshold
+        30
     )
 
     Column {
         Row {
-            Text(text = "threshold: ${timesReached.intValue}, dp: ${distanceScrolledDp.intValue}, cm: ${distanceScrolledCm.floatValue}")
+            Text(fontSize = 24.sp, text = "threshold hit: ${timesReached.intValue}, items scrolled: ${itemsScrolled.intValue}")
         }
         Row {
             LazyColumn(state = lazyListState, modifier = Modifier.fillMaxSize()) {
