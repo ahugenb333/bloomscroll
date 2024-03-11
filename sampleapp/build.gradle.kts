@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.ahugenb.bloomscroll"
+    namespace = "com.ahugenb.bloomscrollsample"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.ahugenb.bloomscroll"
+        applicationId = "com.ahugenb.bloomscrollsample"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -27,6 +27,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("debug")
         }
     }
     compileOptions {
@@ -40,7 +41,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
+        kotlinCompilerExtensionVersion = "1.5.9"
     }
     packaging {
         resources {
@@ -51,6 +52,7 @@ android {
 
 dependencies {
 
+    implementation(project(":bloomscroll"))
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
     implementation("androidx.activity:activity-compose:1.8.2")
